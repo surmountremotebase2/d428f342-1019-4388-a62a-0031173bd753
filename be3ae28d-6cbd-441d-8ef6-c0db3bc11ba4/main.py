@@ -46,6 +46,13 @@ class TradingStrategy(Strategy):
             # If all conditions met, allocate 100% to this asset (buy condition)
             allocation_dict[ticker] = 1.0
 
+            # Sell conditions
+            current_low = ohlcv[-1][ticker]["low"]
+            previous_low = ohlcv[-2][ticker]["low"]
+            price_drop = ohlcv[-1][ticker]["close"] - ohlcv[-2][ticker]["close"] <= -0.10
+            if current_low < previous_low or price_drop:
+                orders.append(Order(ticker, OrderType.SELL))
+
         return TargetAllocation(allocation_dict)
 
         # Note: Selling logic and stop loss conditions are not directly implementable via this strategy definition and might require real-time trading logic
