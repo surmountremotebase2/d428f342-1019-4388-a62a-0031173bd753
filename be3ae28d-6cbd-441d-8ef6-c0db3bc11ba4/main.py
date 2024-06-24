@@ -8,7 +8,8 @@ class TradingStrategy(Strategy):
     def assets(self):
         # Implement logic to filter assets based on the price range specified ($2 to $40)
         # For the sake of example, we would manually list assets, though dynamic filtering based on price would typically be required.
-        return ["AAPL", "TSLA", "MSFT"]  # This should be dynamically generated based on the price criteria.
+        # return ["AAPL", "TSLA", "MSFT"]  # This should be dynamically generated based on the price criteria.
+        self.assets = [asset for asset in Asset.list() if 2 <= asset.price <= 40] # Filter assets based on price criteria
 
     @property
     def interval(self):
