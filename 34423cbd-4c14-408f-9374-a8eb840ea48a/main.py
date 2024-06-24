@@ -20,10 +20,10 @@ class TradingStrategy(Strategy):
 
     def is_price_up(self, stock, ohlcv, percent=10):
         """
-        Checks if the price has moved up by a certain percentage over the last minute.
+        Checks if the price has moved up by a certain percentage since open.
         """
         current_price = ohlcv[-1][stock]["close"]
-        previous_price = ohlcv[-2][stock]["close"]
+        previous_price = ohlcv[0][stock]["open"]
         return (current_price - previous_price) / previous_price * 100 >= percent
 
     def is_macd_above_signal(self, stock, ohlcv):
